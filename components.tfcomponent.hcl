@@ -1,6 +1,14 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
 
+component "ami_lookup" {
+  source = "./ami_lookup"
+
+  providers = {
+    aws = provider.aws.this
+  }
+}
+
 component "tfe-aws-prereqs" {
   source  = "app.terraform.io/richard-russell-org/hvd-module-prereqs/aws"
   version = "1.0.0"
@@ -17,7 +25,8 @@ component "tfe-aws-prereqs" {
     public_subnet_cidrs  = var.public_subnet_cidrs
 
     # --- Bastion --- #
-    create_bastion              = true
+    create_bastion                 = true
+    bastion_image_id               = component.ami_lookup.amd64_ami_id
     bastion_cidr_allow_ingress_ssh = ["0.0.0.0/0"]
 
     # --- TFE Secrets Manager --- #
