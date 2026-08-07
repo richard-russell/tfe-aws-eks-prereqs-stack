@@ -17,10 +17,6 @@ store "varset" "tfe_pki" {
 
 locals {
   aws_region = "eu-west-1"
-
-  # 3 private subnets (EKS nodes + RDS + Redis) and 3 public subnets (load balancers + bastion)
-  private_subnet_cidrs = cidrsubnets(cidrsubnet("10.1.0.0/16", 4, 0), 4, 4, 4)
-  public_subnet_cidrs  = cidrsubnets(cidrsubnet("10.1.0.0/16", 4, 1), 4, 4, 4)
 }
 
 deployment "development" {
@@ -33,8 +29,8 @@ deployment "development" {
     tfe_fqdn             = "eks-tfe.richard-russell.sbx.hashidemos.io"
 
     vpc_cidr             = "10.1.0.0/16"
-    private_subnet_cidrs = local.private_subnet_cidrs
-    public_subnet_cidrs  = local.public_subnet_cidrs
+    private_subnet_cidrs = ["10.1.0.0/24", "10.1.1.0/24", "10.1.2.0/24"]
+    public_subnet_cidrs  = ["10.1.16.0/24", "10.1.17.0/24", "10.1.18.0/24"]
 
     tfe_license             = store.varset.tfe_mushypea_secrets.stable.tfe_license
     tfe_encryption_password = store.varset.tfe_mushypea_secrets.stable.tfe_encryption_password
