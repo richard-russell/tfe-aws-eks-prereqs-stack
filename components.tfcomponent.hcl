@@ -19,10 +19,11 @@ component "tfe-aws-prereqs" {
     region               = var.aws_region
 
     # --- Networking --- #
-    create_vpc           = true
-    vpc_cidr             = var.vpc_cidr
-    private_subnet_cidrs = var.private_subnet_cidrs
-    public_subnet_cidrs  = var.public_subnet_cidrs
+    create_vpc                = true
+    vpc_cidr                  = var.vpc_cidr
+    private_subnet_cidrs      = var.private_subnet_cidrs
+    public_subnet_cidrs       = var.public_subnet_cidrs
+    save_money_on_nat_gateways = true
 
     # --- Bastion --- #
     create_bastion                 = true
