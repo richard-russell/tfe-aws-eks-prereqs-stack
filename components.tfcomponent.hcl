@@ -26,9 +26,9 @@ component "tfe-aws-prereqs" {
     save_money_on_nat_gateways = true
 
     # --- Bastion --- #
-    create_bastion                 = false
-    # bastion_image_id               = component.ami_lookup.amd64_ami_id
-    # bastion_cidr_allow_ingress_ssh = ["0.0.0.0/0"]
+    create_bastion                 = true
+    bastion_image_id               = component.ami_lookup.amd64_ami_id
+    bastion_cidr_allow_ingress_ssh = ["0.0.0.0/0"]
 
     # --- TFE Secrets Manager --- #
     tfe_license_secret_value             = var.tfe_license
